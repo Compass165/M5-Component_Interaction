@@ -1,4 +1,5 @@
-import {Component, OnInit, OnChanges, Output, EventEmitter, SimpleChanges, Input} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {IRatingUnit} from "../i-rating-unit";
 
 @Component({
   selector: 'app-rating-bar',
@@ -8,7 +9,7 @@ import {Component, OnInit, OnChanges, Output, EventEmitter, SimpleChanges, Input
 export class RatingBarComponent implements OnInit, OnChanges{
 
   @Input()
-  max = 5;
+  max = 10;
 
   @Input()
   ratingValue = 5;
@@ -17,14 +18,14 @@ export class RatingBarComponent implements OnInit, OnChanges{
   showRatingValue = true;
 
   @Output()
-  ratingChange = new EventEmitter<number>();
+  rateChange = new EventEmitter<number>();
 
   ratingUnits: Array<IRatingUnit> = [];
 
   constructor() {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     if ('max' in changes) {
       // @ts-ignore
       let max = changes.max.currentValue;
@@ -32,14 +33,13 @@ export class RatingBarComponent implements OnInit, OnChanges{
       this.max = max;
       this.calculate(max, this.ratingValue);
     }
-  }
 
-  ngOnInit(): void {
-    this.calculate(this.max, this.ratingValue);
+
+
   }
 
   // @ts-ignore
-  calculate(max, ratingValue): void {
+  calculate(max, ratingValue) {
     this.ratingUnits = Array.from({length: max},
       (_, index) => ({
         value: index + 1,
@@ -47,16 +47,22 @@ export class RatingBarComponent implements OnInit, OnChanges{
       }));
   }
 
-  // @ts-ignore
-  select(index): void {
-    this.ratingValue = index + 1;
-    this.ratingUnits.forEach((item, idx) =>
-    item.active = idx <= index);
+  ngOnInit() {
+    this.calculate(this.max, this.ratingValue);
   }
 
-  reset():void {
-    this.ratingUnits.forEach((item, idx) =>
-    item.active = idx < this.ratingValue)
+  // @ts-ignore
+  select(index) {
+    this.ratingValue = index + 1;
+    this.ratingUnits.forEach((item, idx) => item.active = idx < this.ratingValue);
+    this.rateChange.emit(this.ratingValue);
+  }
+  // @ts-ignore
+  enter(index) {
+    this.ratingUnits.forEach((item, idx) => item.active = idx <= index);
+  }
+  reset() {
+    this.ratingUnits.forEach((item, idx) => item.active = idx < this.ratingValue);
   }
 
 }

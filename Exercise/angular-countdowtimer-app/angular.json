@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-rating-bar": {
+    "angular-countdowtimer-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-rating-bar",
+            "outputPath": "dist/angular-countdowtimer-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-rating-bar:build:production"
+              "browserTarget": "angular-countdowtimer-app:build:production"
             },
             "development": {
-              "browserTarget": "angular-rating-bar:build:development"
+              "browserTarget": "angular-countdowtimer-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-rating-bar:build"
+            "browserTarget": "angular-countdowtimer-app:build"
           }
         },
         "test": {
@@ -94,8 +94,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "f506a804-7b56-4e77-88b0-0822aa873859"
   }
 }
